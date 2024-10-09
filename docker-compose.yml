@@ -1,6 +1,8 @@
 services:
   web:
-    image: php:8.1-apache
+    build:
+      context: .
+      dockerfile: Dockerfile
     container_name: php-apache
     volumes:
       - ./src:/var/www/html
@@ -21,7 +23,7 @@ services:
       MYSQL_DATABASE: moviedb
     volumes:
       - moviedb-data:/var/lib/mysql
-      - ./init/movieDB.sql:/docker-entrypoint-initdb.d/movieDB.sql
+      - ./mySqlDB/movieDB.sql:/docker-entrypoint-initdb.d/movieDB.sql
     ports:
       - "3306:3306"
   db2:
@@ -32,7 +34,7 @@ services:
       MYSQL_DATABASE: bookstore
     volumes:
       - bookstore-data:/var/lib/mysql
-      - ./init/bookDB.sql:/docker-entrypoint-initdb.d/bookDB.sql
+      - ./mySqlDB/bookDB.sql:/docker-entrypoint-initdb.d/bookDB.sql
     ports:
       - "3307:3306"
 
